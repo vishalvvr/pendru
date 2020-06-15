@@ -12,8 +12,11 @@ No need to reformat your drive everytime to create boot pendrive only replace/ad
 - Now use any CLI or disk partition utility to format the unallocated space to FAT partition
 -- NOTE: The FAT partition should be labeled as "PENDRU", this lable is internally used by the grub bootloder(grub.iso) to locate grub.cfg and bootable ISO files.
 - Last step is to copy the bootable directory into the USB drive.
+  
 ├── bootable
+
 │   ├── grub.cfg
+
 │   └── iso
 
 ##### Now above steps have made you flash drive multi boot usb device, you just have to takecare of two things:

@@ -1,0 +1,150 @@
+# example grub.cfg menu entry:
+
+## working
+------------- 
+menuentry "Tiny Core linux 11.1" {
+   	set isofile="/bootable/iso/core.iso"
+	loopback loop $isofile	
+	linux (loop)/boot/vmlinuz boot=boot iso-scan/filename=$isofile noprompt noeject
+       initrd (loop)/boot/core.gz
+}
+
+menuentry "Manjaro 21.0.7 minimal" {
+    insmod fat
+    set isofile="/bootable/iso/manjaro2107minimal.iso"
+    set dri="free"
+    set lang="en_US"
+    set keytable="us"
+    set timezone="UTC"
+    set rootlabel="PENDRU"
+    search --no-floppy --label --set=root $rootlabel
+    loopback loop $isofile
+    linux  (loop)/boot/vmlinuz-x86_64 img_loop=$isofile driver=$dri tz=$timezone lang=$lang keytable=$keytable copytoram
+    initrd  (loop)/boot/intel_ucode.img (loop)/boot/initramfs-x86_64.img
+}
+
+menuentry "Ubuntu 21.04" {
+	set isofile="/bootable/iso/ubuntu2104.iso"
+	loopback loop $isofile
+	linux (loop)/casper/vmlinuz iso-scan/filename="${isofile}" boot=casper quiet splash ---
+    initrd (loop)/casper/initrd
+}
+
+menuentry "Fedora 34 0" {
+	insmod fat
+	set isofile="/bootable/iso/Fedora34.iso"
+	loopback loop $isofile	
+	linux (loop)/isolinux/vmlinuz iso-scan/filename="${isofile}" append initrd=initrd.img root=live:CDLABEL=Fedora-WS-Live-34-1-2  rd.live.image quiet
+    initrd (loop)/isolinux/initrd.img
+}
+
+
+## experimental
+-----------------
+
+menuentry "Puppy Linux fossapup64-9.5 0" {
+	insmod fat
+	set isofile="/bootable/iso/puppylinux95.iso"
+	set rootlabel="PENDRU"
+    search --no-floppy --label --set=root $rootlabel
+    loopback loop $isofile
+	linux (loop)/vmlinuz pmedia=$rootlabel pfix=fsck
+	initrd (loop)/initrd.gz
+}
+
+
+menuentry "Tiny CorePlus linux 12.0" {
+   	set isofile="/bootable/iso/tinycore12.iso"
+	loopback loop $isofile	
+	linux (loop)/boot/vmlinuz boot=boot iso-scan/filename=$isofile noprompt noeject
+    initrd (loop)/boot/core.gz
+}
+
+menuentry "Fedora 34 1" {
+	insmod fat
+	set isofile="/bootable/iso/Fedora34.iso"
+	loopback loop $isofile
+	linux (loop)/isolinux/vmlinuz iso-scan/filename="${isofile}" root=live:CDLABEL=Fedora-WS-Live-34-1-2  rd.live.image quiet
+    initrd (loop)/isolinux/initrd.img
+}
+
+menuentry "Fedora 34 2" {
+	set isofile="/bootable/iso/Fedora34.iso"
+	loopback loop $isofile	
+	linux (loop)/isolinux/vmlinuz iso-scan/filename="${isofile}" root=live:CDLABEL=Fedora-WS-Live-28 rd.live.image quiet
+    initrd (loop)/isolinux/initrd.img
+}
+
+menuentry "Fedora 34 3" {
+	insmod fat
+	set isofile="/bootable/iso/Fedora34.iso"
+	loopback loop $isofile
+	linux (loop)/isolinux/vmlinuz iso-scan/filename="${isofile}" root=live:CDLABEL=Fedora
+  	initrd (loop)/isolinux/initrd.img
+}
+
+menuentry "Fedora 34 4" {
+	insmod fat
+	set rootlabel="PENDRU"
+	set isofile="/bootable/iso/Fedora34.iso"
+	search --no-floppy --label --set=root $rootlabel
+	loopback loop $isofile
+	linux (loop)/isolinux/vmlinuz iso-scan/filename="${isofile}" root=live:LABEL=$rootlabel:$isofile
+    initrd (loop)/isolinux/initrd.img
+}
+	
+menuentry "Fedora 34 5" {
+	insmod fat
+	set rootlabel="PENDRU"
+	set isofile="/bootable/iso/Fedora34.iso"
+	search --no-floppy --label --set=root $rootlabel
+	loopback loop $isofile
+	kernel vmlinuz	
+	linux (loop)/isolinux/vmlinuz iso-scan/filename="${isofile}" append initrd=initrd.img root=live:LABEL=$rootlabel:$isofile  rd.live.image quiet
+    initrd (loop)/isolinux/initrd.img
+}	
+
+
+menuentry "Manjaro 21.0.7 minimal 2" {
+    insmod fat
+    set isofile="/bootable/iso/manjaro2107minimal.iso"
+    set dri="free"
+    set lang="en_US"
+    set keytable="us"
+    set timezone="UTC"
+    set rootlabel="PENDRU"
+    search --no-floppy --label --set=root $rootlabel
+    loopback loop $isofile
+    linux  (loop)/boot/vmlinuz-x86_64 img_dev=live:LABEL=$rootlabel img_loop=$isofile driver=$dri tz=$timezone lang=$lang keytable=$keytable copytoram
+    initrd  (loop)/boot/intel_ucode.img (loop)/boot/initramfs-x86_64.img
+}
+
+
+menuentry "Manjaro 21.0.7 minimal 3" {
+    insmod fat
+    set isofile="/bootable/iso/manjaro2107minimal.iso"
+    set dri="free"
+    set lang="en_US"
+    set keytable="us"
+    set timezone="UTC"
+    set rootlabel="PENDRU"
+    search --no-floppy --label --set=root $rootlabel
+    loopback loop $isofile
+    linux  (loop)/boot/vmlinuz-x86_64 root=live:LABEL=$rootlabel img_loop=$isofile driver=$dri tz=$timezone lang=$lang keytable=$keytable copytoram
+    initrd  (loop)/boot/intel_ucode.img (loop)/boot/initramfs-x86_64.img
+}
+
+menuentry "Manjaro 21.0.7 minimal 4" {
+    insmod fat
+    set isofile="/bootable/iso/manjaro2107minimal.iso"
+    set dri="free"
+    set lang="en_US"
+    set keytable="us"
+    set timezone="UTC"
+    set rootlabel="PENDRU"
+    search --no-floppy --label --set=root $rootlabel
+    loopback loop $isofile
+    linux  (loop)/boot/vmlinuz-x86_64 img_dev=$rootlabel img_loop=$isofile driver=$dri tz=$timezone lang=$lang keytable=$keytable copytoram
+    initrd  (loop)/boot/intel_ucode.img (loop)/boot/initramfs-x86_64.img
+}
+
